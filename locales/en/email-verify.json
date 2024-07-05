@@ -1,0 +1,10 @@
+{
+  "document_title": "Verify Email",
+  "instructions": [
+    "Make sure your email address is correct.",
+    "Make sure to check your junk mail filters.",
+    "Try a different email address if it's still not coming through."
+  ],
+  "title": "We have sent verication mail to {{email}}.",
+  "verify_success": "Congratulations, you have successfully verify your email. Redirecting..."
+}

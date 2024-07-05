@@ -1,0 +1,102 @@
+{
+  "detail": {
+    "reviewer_title": "Người đánh giá",
+    "type_car_title": "Kiểu xe",
+    "capacity_people_title": "Người",
+    "capacity_person_title": "Người"
+  },
+  "filter": {
+    "max_title": "Tối đa",
+    "date_title": "Ngày",
+    "time_title": "Thời gian",
+    "type_title": "Kiểu xe",
+    "clear_title": "Xóa bộ lọc",
+    "price_title": "Giá",
+    "submit_title": "Tìm kiếm",
+    "pick_up_title": "Điểm nhận",
+    "capacity_title": "Sức chứa",
+    "drop_off_title": "Điểm trả",
+    "location_title": "Địa điểm",
+    "steering_title": "Hệ thống lái",
+    "gasonline_title": "Dung tích",
+    "select_date_title": "Chọn ngày của bạn",
+    "select_location_title": "Chọn thành phố của bạn"
+  },
+  "footer": {
+    "about": {
+      "title": "Giới thiệu",
+      "points": {
+        "0": "Cách thức hoạt động",
+        "1": "Đặc sắc",
+        "2": "Quan hệ đối tác",
+        "3": "Quan hệ kinh doanh"
+      }
+    },
+    "rights": "Đã đăng ký Bản quyền",
+    "vision": "Tầm nhìn của chúng tôi là cung cấp sự tiện lợi và giúp tăng doanh số bán hàng của bạn.",
+    "socials": {
+      "title": "Mạng xã hội"
+    },
+    "community": {
+      "title": "Cộng đồng",
+      "points": {
+        "0": "Sự kiện",
+        "1": "Blog",
+        "2": "Podcast",
+        "3": "Mời một người bạn"
+      }
+    }
+  },
+  "header": {
+    "login_title": "Đăng nhập",
+    "logout_title": "Đăng xuất",
+    "language_title": "Ngôn ngữ",
+    "register_title": "Đăng ký",
+    "search_field_placeholder": "Tìm kiếm thứ gì đó ở đây"
+  },
+  "search": {
+    "no_results": "Không có kết quả nào được tìm thấy.",
+    "find_car_title": "Tìm xe",
+    "update_button_title": "Cập nhật"
+  },
+  "car_title": "Xe hơi",
+  "name_field": "Họ và tên",
+  "email_field": "E-mail",
+  "error_messages": {
+    "timeout": "Đã hết thời gian chờ và không thể lấy được dữ liệu.",
+    "max_length": "[{{field}}] không được vượt quá {{number}} ký tự",
+    "min_length": "[{{field}}] phải có ít nhất {{number}} ký tự",
+    "unknown_error": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại hoặc liên hệ với quản trị viên.",
+    "field_required": "[{{field}}] là bắt buộc. Xin vui lòng nhập.",
+    "not_found_title": "Lỗi 404 Không tìm thấy",
+    "session_expired": "Phiên của bạn đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại để tiếp tục.",
+    "invalid_email_format": "Định dạng email không hợp lệ",
+    "terms_check_required": "Bạn phải chấp nhận các điều khoản và chính sách",
+    "not_found_description": "Xin lỗi, trang bạn đang tìm kiếm không thể tìm thấy.",
+    "passwords_do_not_match": "Xác nhận mật khẩu không khớp",
+    "invalid_password_format": "Mật khẩu phải dài ít nhất 8 ký tự và chứa ít nhất một chữ hoa, một chữ thường và một chữ số",
+    "city_required": "[Thị trấn / Thành phố] là bắt buộc. Xin vui lòng nhập.",
+    "paypal_notify": "Vui lòng kiểm tra thông tin của bạn để tiếp tục",
+    "rental_summary_required": "Vui lòng chọn ngày nhận và ngày trả trước khi thực hiện hành động này.",
+    "get_orders_failed": "Đã xảy ra sự cố khi truy xuất lịch sử đơn hàng.",
+    "try_again": "Thử lại",
+    "fetch_exception": "Lỗi máy chủ: Đã xảy ra sự cố khi truy xuất {{name}}."
+  },
+  "password_field": "Mật khẩu",
+  "view_all_title": "Xem tất cả",
+  "price_day_title": "ngày",
+  "show_more_title": "Hiển thị thêm xe",
+  "rent_button_title": "Thuê ngay",
+  "recommend_car_title": "Xe khuyến nghị",
+  "confirm_password_field": "Xác nhận mật khẩu",
+  "name_field_placeholder": "Nhập tên người dùng của bạn",
+  "email_field_placeholder": "Nhập email của bạn",
+  "password_field_placeholder": "Nhập mật khẩu của bạn",
+  "confirm_password_field_placeholder": "Nhập mật khẩu xác nhận của bạn",
+  "orders_history": "Lịch sử mua hàng",
+  "car_detail": "Chi tiết xe",
+  "filter_tags": "Thẻ lọc",
+  "car_reviews": "Đánh giá xe",
+  "go_to_homepage": "Đi tới trang chủ",
+  "change_theme": "Thay đổi chủ đề"
+}

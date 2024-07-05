@@ -1,0 +1,31 @@
+{
+  "header": {
+    "login_title": "Login",
+    "logout_title": "Log out",
+    "register_title": "Register"
+  },
+  "name_field": "Full Name",
+  "email_field": "Email",
+  "error_messages": {
+    "timeout": "Timeouts occurred and data could not be obtained.",
+    "max_length": "[{{field}}] must not exceed {{number}} characters",
+    "min_length": "[{{field}}] must be at least {{number}} characters",
+    "unknown_error": "An unexpected error occurred. Please try again or contact the administrator.",
+    "field_required": "[{{field}}] is required. Please enter.",
+    "not_found_title": "404 Not Found",
+    "session_expired": "Your session has expired or is invalid. Please log in again to continue.",
+    "invalid_email_format": "Invalid email format",
+    "terms_check_required": "You must accept the terms and policy",
+    "not_found_description": "Sorry, the page you are looking for could not be found.",
+    "passwords_do_not_match": "Confirm password do not match",
+    "invalid_password_format": "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit",
+    "try_again": "Try again",
+    "fetch_exception": "Server Error: There is an issue retrieving the {{name}}."
+  },
+  "password_field": "Password",
+  "confirm_password_field": "Confirm Password",
+  "name_field_placeholder": "Enter your username",
+  "email_field_placeholder": "Enter your email",
+  "password_field_placeholder": "Enter your password",
+  "confirm_password_field_placeholder": "Enter your confirm password"
+}

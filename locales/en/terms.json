@@ -1,0 +1,19 @@
+{
+  "document_title": "Terms of Service",
+  "last_updated": "Last updated: January 22, 2024",
+  "sections": {
+    "introduction": {
+      "content": "Welcome to our platform. By using our services, you agree to comply with these terms.If you do not agree with any part of these terms, you may not use our services.",
+      "title": "Introduction"
+    },
+    "termination": {
+      "content": "We reserve the right to terminate your account for violations of our terms or policies. You may also terminate your account at any time by contacting our support team.",
+      "title": "Termination"
+    },
+    "usage": {
+      "content": "By using our services, you agree to abide by our usage policy. Violation of the policy may result in the termination of your account.",
+      "title": "Usage Policy"
+    }
+  },
+  "title": "Terms & Condition"
+}

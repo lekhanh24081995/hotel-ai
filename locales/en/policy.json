@@ -1,0 +1,36 @@
+{
+  "changes_to_policy": {
+    "content": "We reserve the right to modify or replace this Privacy Policy at any time. If there are significant changes, we will make reasonable efforts to notify you in advance. Your continued use of our services after any changes indicate your acceptance of the revised policy.",
+    "title": "Changes to This Privacy Policy"
+  },
+  "contact_us": {
+    "points": [
+      "By visiting this page on our website: [http://www.morent.com/contact]",
+      "By mail: 767 Fifth Avenue New York, NY 10153, United States"
+    ],
+    "title": "Contact Us"
+  },
+  "document_title": "Privacy & Policy",
+  "how_we_use": {
+    "points": [
+      "We use the collected information for various purposes, including but not limited to:",
+      "Providing and Improving Services: We use your information to provide and improve our services, customize your experience, and understand how users interact with our website.",
+      "Communication: We may use your email address to send you updates, newsletters, and respond to inquiries.",
+      "Analytics: We analyze user behavior and preferences to improve our website and services."
+    ],
+    "title": "How We Use Your Information"
+  },
+  "information_collect": {
+    "points": [
+      "We may collect various types of information, including personal information, when you access or use our website or services.",
+      "Personal Information: This may include information such as your name, email address, and other personally identifiable information that you provide to us.",
+      "Device Information: We may collect information about the device you use to access our services, including device type, operating system, and browser type.",
+      "Log Data: We may automatically collect log data when you use our services, including your IP address, browser information, and the pages you visit."
+    ],
+    "title": "Information We Collect"
+  },
+  "last_updated": "Last updated: January 22, 2024",
+  "security": "We take reasonable measures to protect the security and integrity of your personal information. However, please be aware that no method of transmission over the internet or electronic storage is completely secure, and we cannot guarantee absolute security.",
+  "third_party_services": "Our website may contain links to third-party websites or services that are not owned or controlled by us. We are not responsible for the privacy practices or content of these third-party sites.",
+  "title": "Privacy & Policy"
+}

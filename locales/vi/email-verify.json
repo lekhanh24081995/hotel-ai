@@ -1,0 +1,10 @@
+{
+  "document_title": "Xác nhận Email",
+  "instructions": [
+    "Hãy chắc chắn rằng địa chỉ email của bạn là chính xác.",
+    "Đảm bảo kiểm tra bộ lọc thư rác của bạn.",
+    "Hãy thử một địa chỉ email khác nếu nó vẫn không được gửi đến."
+  ],
+  "title": "Chúng tôi đã gửi thư xác minh tới {{email}} .",
+  "verify_success": "Xin chúc mừng, bạn đã xác minh thành công email của mình. Đang chuyển hướng..."
+}
