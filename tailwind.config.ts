@@ -60,7 +60,9 @@ const config: Config = {
     }
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    require('@tailwindcss/forms')({
+      strategy: 'class'
+    }),
     require('tailwind-scrollbar-hide'),
     require('tailwindcss-textshadow'),
     require('tailwindcss-animate')

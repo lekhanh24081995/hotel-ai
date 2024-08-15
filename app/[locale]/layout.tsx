@@ -3,10 +3,10 @@ import './globals.css';
 import { dir } from 'i18next';
 import { Metadata } from 'next';
 import { i18nConfig } from '../../i18nConfig';
-import { ToastContainer } from 'react-toastify';
 import ReactQueryProvider from '../providers/ReactQueryProvider';
 import { TooltipProvider } from '../components/ui/tooltip';
 import { SessionProvider } from 'next-auth/react';
+import ToastProvider from '../providers/ToastifyProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -43,14 +43,7 @@ export default async function RootLayout({
         <ReactQueryProvider>
           <TooltipProvider>
             <body className={inter.className}>
-              {children}
-              <ToastContainer
-                hideProgressBar={true}
-                icon={false}
-                toastClassName={'bg-red-500'}
-                theme="dark"
-                autoClose={2000}
-              />
+              <ToastProvider>{children}</ToastProvider>
             </body>
           </TooltipProvider>
         </ReactQueryProvider>

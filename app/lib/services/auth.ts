@@ -71,8 +71,6 @@ async function requestLogout(payload: any, headers = {}) {
     cache: 'no-cache'
   });
 
-  if (!res.ok) return new Promise(async (_, rej) => rej(await res.json()));
-
   return await res.json();
 }
 

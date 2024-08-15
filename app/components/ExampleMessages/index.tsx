@@ -23,20 +23,24 @@ export default function ExampleMessages({ show, onSendMessage }: Props) {
   return (
     <>
       {show && (
-        <div className="mx-auto mb-4 grid max-w-2xl gap-2 px-6 sm:grid-cols-2 sm:gap-4">
-          {exampleMessages.map((example, index) => (
-            <div
-              key={example.heading}
-              className={cn(
-                'cursor-pointer rounded-2xl bg-zinc-50 p-4 text-zinc-950 transition-colors hover:bg-zinc-100 sm:p-6',
-                index > 1 && 'hidden md:block'
-              )}
-              onClick={() => onSendMessage(example.message)}
-            >
-              <div className="font-medium">{example.heading}</div>
-              <div className="text-sm text-zinc-800">{example.subheading}</div>
-            </div>
-          ))}
+        <div className="flex items-center justify-center px-4 md:px-6">
+          <div className="mb-4 grid w-full max-w-2xl gap-2 sm:grid-cols-2 sm:gap-4">
+            {exampleMessages.map((example, index) => (
+              <div
+                key={example.heading}
+                className={cn(
+                  'cursor-pointer rounded-2xl bg-zinc-50 p-4 text-zinc-950 transition-colors hover:bg-zinc-100 sm:p-6',
+                  index > 1 && 'hidden md:block'
+                )}
+                onClick={() => onSendMessage(example.message)}
+              >
+                <div className="font-medium">{example.heading}</div>
+                <div className="text-sm text-zinc-800">
+                  {example.subheading}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </>

@@ -33,6 +33,8 @@ export interface Session {
     expires_in: number;
   };
   access_token: string;
+  refresh_token: string;
+  error: string;
 }
 
 export interface AuthResult {

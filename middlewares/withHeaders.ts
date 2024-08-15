@@ -17,7 +17,6 @@ export const withHeaders: MiddlewareFactory = (next: NextMiddleware) => {
         const headers = new Headers(request.headers);
 
         if (endpointsContainsPath(REQUIRED_TOKEN_ENDPOINTS, pathname)) {
-          // headers.set('Accept', 'application/json');
         }
       }
 

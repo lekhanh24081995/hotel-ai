@@ -43,6 +43,13 @@ export const withAuth: MiddlewareFactory = (next) => {
 
           return Response.redirect(url);
         }
+
+        if (
+          !pathname.startsWith(LIST_ROUTER.CHAT) &&
+          !pathname.startsWith(LIST_ROUTER.CHATBOT)
+        ) {
+          return Response.redirect(new URL(LIST_ROUTER.CHATBOT, nextUrl));
+        }
       } else if (session) {
         if (isOnLogin) {
           return Response.redirect(new URL(LIST_ROUTER.DASHBOARD, nextUrl));

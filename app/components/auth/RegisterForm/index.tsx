@@ -139,7 +139,7 @@ function RegisterForm() {
           </div>
 
           <div className="space-y-1">
-            <div className="flex items-start gap-2">
+            <div className="flex items-center gap-2">
               <Controller
                 control={control}
                 name="terms_and_policy_checked"
@@ -147,7 +147,7 @@ function RegisterForm() {
                   <Input
                     type="checkbox"
                     id="terms_and_policy_checked"
-                    className="form-checkbox h-4 w-4 border-gray-300 bg-gray-100 p-1 text-blue-600 focus:ring-blue-500"
+                    className="form-checkbox h-4 w-4 border-gray-300 bg-gray-100 p-1 text-primary focus:ring-primary-foreground"
                     checked={value}
                     onChange={onChange}
                     required

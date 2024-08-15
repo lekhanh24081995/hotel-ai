@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import { INVALID_TOKEN, UNAUTHORIZED_ACCESS } from './constants/errors';
+import { ResultCode } from './utils';
 
 export class FetchException extends Error {
   constructor(
@@ -56,7 +57,7 @@ export class ApiError extends Error {
   static fromBadRequest() {
     return new ApiError(
       'CUS-0001',
-      'BAD REQUEST',
+      ResultCode.BadRequest,
       'The request could not be processed due to invalid input.'
     );
   }
@@ -64,7 +65,7 @@ export class ApiError extends Error {
   static fromNotfound() {
     return new ApiError(
       'CUS-0002',
-      'NOT_FOUND',
+      ResultCode.NotFound,
       'The requested resource could not be found.'
     );
   }
@@ -72,7 +73,7 @@ export class ApiError extends Error {
   static fromInvalidEmailPassword() {
     return new ApiError(
       'LO-0001',
-      'Login error',
+      ResultCode.InvalidCredentials,
       'Invalid username or password.'
     );
   }
@@ -80,7 +81,7 @@ export class ApiError extends Error {
   static fromUnauthorized() {
     return new ApiError(
       UNAUTHORIZED_ACCESS,
-      'Unauthorized',
+      ResultCode.UnauthorizedAccess,
       'Unauthorized access.'
     );
   }
@@ -88,7 +89,7 @@ export class ApiError extends Error {
   static fromUnverified() {
     return new ApiError(
       'LO-0003',
-      'Unverified user',
+      ResultCode.UnverifiedUser,
       'Unverified user. Please check your email.'
     );
   }
@@ -120,7 +121,7 @@ export class ApiError extends Error {
   static fromUnexpected(): ApiError {
     return new ApiError(
       'CUS-0500',
-      'Internal Server Error',
+      ResultCode.UnknownError,
       'An unexpected error occurred. Please try again later.'
     );
   }

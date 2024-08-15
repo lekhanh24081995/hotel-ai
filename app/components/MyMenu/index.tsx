@@ -9,10 +9,9 @@ import {
   DocumentChartBarIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import { logout } from '@/app/lib/actions';
+import { clearSession, logout } from '@/app/lib/actions';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { useRouter } from 'next/navigation';
-import { LIST_ROUTER } from '@/app/lib/constants/common';
 
 type Props = {
   children: React.ReactNode;
@@ -53,9 +52,19 @@ const MyMenu = ({ children, user }: Props) => {
   const handleClickItem = async (item: MenuItem) => {};
 
   const handleSignOut = async () => {
-    const res = await logout();
-    router.push(res.redirect);
-    router.refresh();
+    try {
+      const logoutRes = await logout();
+
+      if (logoutRes.error) {
+        console.log('Logout failed', logoutRes.error);
+      }
+
+      const res = await clearSession();
+      router.push(res.redirect);
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -67,9 +76,9 @@ const MyMenu = ({ children, user }: Props) => {
       <MenuItems
         transition
         anchor="bottom end"
-        className="absolute right-0 top-full z-50 mt-4 w-56 min-w-80 max-w-80 origin-top-right divide-y divide-gray-200 rounded-md border-t-[3px] border-red-2 bg-white shadow-lg focus:outline-none"
+        className="absolute right-0 top-full z-50 mt-4 w-56 min-w-72 max-w-80 origin-top-right divide-y divide-gray-200 rounded-md border-t-[3px] border-red-2 bg-white shadow-lg transition duration-200 ease-out focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 md:min-w-80"
       >
-        <div className="flex items-stretch gap-4 bg-slate-100 px-7 py-4">
+        <div className="flex items-center gap-4 bg-slate-100 px-7 py-4 md:items-stretch">
           <Avatar className="relative h-8 w-8 bg-red-1 text-white md:h-14 md:w-14">
             <AvatarImage src={user?.image!} />
             <AvatarFallback className="bg-red-1 p-2 text-white md:p-3">

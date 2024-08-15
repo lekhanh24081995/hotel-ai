@@ -8,7 +8,7 @@ import { InputLabel } from '../../InputLabel';
 import { Button } from '../../ui/button';
 import { toast } from 'react-toastify';
 import { useFormState, useFormStatus } from 'react-dom';
-import { getMessageFromCode } from '@/app/lib/utils';
+import { getMessageFromCode, ResultCode } from '@/app/lib/utils';
 import { authenticate } from '@/app/[locale]/(auth)/login/actions';
 import { LoadingIcon } from '../../LoadingIcon';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -27,10 +27,13 @@ function LoginForm() {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     if (result) {
+      if (result.resultCode === ResultCode.UnknownError) {
+        return setError(getMessageFromCode(result.resultCode) ?? '');
+      }
       if (result.message) {
         return setError(result.message);
       }

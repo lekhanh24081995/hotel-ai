@@ -1,58 +1,105 @@
 'use server';
 
-import { requestLogout } from './services/auth';
-import ENDPOINTS from './endpoints';
-import { get, post } from './request';
-import { auth, signIn, signOut } from '@/auth';
+import { requestLogin, requestLogout, requestRefresh } from './services/auth';
+import { signIn, signOut } from '@/auth';
+import { cookies } from 'next/headers';
+import { COOKIE_CONFIG, STORAGE_KEYS } from './constants/common';
 
 async function login(payload: any) {
-  const res = await post(ENDPOINTS.LOGIN, {
-    body: payload,
-    cache: 'no-cache'
-  });
-
-  return await res.json();
+  const res: {
+    data: {
+      access_token: string;
+      refresh_token: string;
+      expires_in: number;
+    };
+    error: CustomError;
+  } = await requestLogin(payload);
+  const data = res.data;
+  if (data?.access_token) {
+    cookies().set({
+      name: STORAGE_KEYS.ACCESS_TOKEN,
+      value: data.access_token,
+      ...COOKIE_CONFIG
+    });
+    cookies().set({
+      name: STORAGE_KEYS.REFRESH_TOKEN,
+      value: data.refresh_token,
+      ...COOKIE_CONFIG
+    });
+  }
+  return res;
 }
 
 async function logout() {
-  const session = await auth();
-  if (session?.refresh_token) {
-    const logoutRes = await requestLogout(
-      { refresh_token: session?.refresh_token },
-      { Authorization: `Bearer ${session?.access_token}` }
-    );
-    if (logoutRes.error) {
-      throw logoutRes.error;
-    }
-  }
+  const refresh_token = cookies().get(STORAGE_KEYS.REFRESH_TOKEN)?.value;
+  const access_token = cookies().get(STORAGE_KEYS.ACCESS_TOKEN)?.value;
 
+  const res: {
+    error: CustomError;
+  } = await requestLogout(
+    { refresh_token },
+    {
+      Authorization: 'Bearer ' + access_token
+    }
+  );
+  if (!res.error) {
+    cookies().set(STORAGE_KEYS.ACCESS_TOKEN, '', {
+      ...COOKIE_CONFIG,
+      maxAge: 0
+    });
+    cookies().set(STORAGE_KEYS.REFRESH_TOKEN, '', {
+      ...COOKIE_CONFIG,
+      maxAge: 0
+    });
+  }
+  return res;
+}
+
+async function clearSession() {
   const res = await signOut({
     redirect: false
   });
   return res;
 }
 
-async function refresh(refresh_token: string) {
-  const res = await post(ENDPOINTS.REFRESH_TOKEN, {
-    body: { refresh_token },
-    cache: 'no-cache'
-  });
+async function refresh() {
+  const refresh_token = cookies().get(STORAGE_KEYS.REFRESH_TOKEN)?.value;
+  const res = await requestRefresh(
+    { refresh_token },
+    {
+      cache: 'no-cache'
+    }
+  );
+  console.log('actions.ts: ', { refresh_token, res });
 
-  return await res.json();
-}
+  if (res.error) {
+    console.log('delete old coolies');
+    cookies().set(STORAGE_KEYS.ACCESS_TOKEN, '', {
+      ...COOKIE_CONFIG,
+      maxAge: 0
+    });
+    cookies().set(STORAGE_KEYS.REFRESH_TOKEN, '', {
+      ...COOKIE_CONFIG,
+      maxAge: 0
+    });
+  }
 
-async function getUser(params: any, headers = {}) {
-  const res = await get(ENDPOINTS.USERS, {
-    headers: {
-      ...headers
-    },
-    params,
-    cache: 'no-cache'
-  });
+  const data = res.data;
+  if (data?.access_token) {
+    console.log('Set new cookies');
+    cookies().set({
+      name: STORAGE_KEYS.ACCESS_TOKEN,
+      value: data.access_token,
+      ...COOKIE_CONFIG
+    });
+    cookies().set({
+      name: STORAGE_KEYS.REFRESH_TOKEN,
+      value: data.refresh_token,
+      ...COOKIE_CONFIG
+    });
+  }
 
-  if (!res.ok) return new Promise(async (_, rej) => rej(await res.json()));
-
-  return await res.json();
+  return res;
 }
 
 export async function socialLogin(type: string) {
@@ -63,4 +110,4 @@ export async function socialLogin(type: string) {
   return res;
 }
 
-export { login, logout, refresh, getUser };
+export { login, logout, refresh, clearSession };

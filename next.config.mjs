@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/dashboard',
+        destination: '/dashboard/chatbot',
         permanent: true
       }
     ];

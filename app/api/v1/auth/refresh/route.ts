@@ -28,7 +28,7 @@ export async function POST(req: Request) {
   const token = await AvailableToken.findOne({ refresh_token });
 
   if (!token) {
-    const error = ApiError.fromUnauthorized();
+    const error = ApiError.fromInvalidToken();
     return handleError(error, 401);
   }
 
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
       ]
     });
 
-    const access_token = generateAccessToken(userId);
+    const { access_token, expires_in } = generateAccessToken(userId);
     const new_refresh_token = generateRefreshToken(userId);
 
     await AvailableToken.create({
@@ -57,7 +57,8 @@ export async function POST(req: Request) {
       message: 'Success',
       data: {
         access_token,
-        refresh_token: new_refresh_token
+        refresh_token: new_refresh_token,
+        expires_in
       }
     });
   } catch (error: any) {

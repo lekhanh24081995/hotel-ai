@@ -18,8 +18,9 @@ export default function ChatHeader({ id, title }: Props) {
   const { isSidebarOpen, toggleSidebar } = useDashboardContext();
   const [shareDialogOpen, setShareDialogOpen] = useState(false);
   const [aiState] = useAIState();
+
   return (
-    <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background px-6 py-4 shadow-md">
+    <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background px-4 py-4 shadow-md md:px-6">
       <div className="flex items-center gap-2">
         <Avatar className="relative h-8 w-8 border bg-gray-800 text-white">
           <AvatarFallback className="bg-gray-800 p-2 text-white">

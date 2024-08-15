@@ -43,6 +43,7 @@ declare module 'next-auth' {
     };
     access_token: string;
     refresh_token: string;
+    error: string;
   }
 }
 declare module 'next-auth/jwt' {
@@ -65,6 +66,8 @@ declare module 'next-auth/jwt' {
     };
     access_token: string;
     refresh_token: string;
+    access_token_expires: number;
+    error: string;
   }
 }
 
@@ -111,7 +114,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
 
         const data = res.data;
-
         const { access_token, refresh_token, expires_in } = data;
 
         const { data: user } = await requestGetMe({

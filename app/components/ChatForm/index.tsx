@@ -22,7 +22,7 @@ export default function ChatForm({ onSubmit, control }: Props) {
     <form
       ref={formRef}
       onSubmit={onSubmit}
-      className="sticky bottom-0 flex w-full items-center justify-center bg-background md:p-4"
+      className="sticky bottom-0 flex w-full items-center justify-center bg-background p-4"
     >
       <div className="relative flex max-h-60 w-full flex-col overflow-hidden md:max-w-2xl">
         <Controller
@@ -33,12 +33,11 @@ export default function ChatForm({ onSubmit, control }: Props) {
               placeholder="Send a message..."
               name="message"
               id="message"
-              className="flex min-h-[60px] resize-none items-center px-4 py-[1.3rem] pr-16 shadow-sm"
+              className="form-textarea flex min-h-[60px] resize-none items-center px-4 py-[1.3rem] pr-16 shadow-sm focus-visible:border-muted-foreground"
               value={value}
               onChange={onChange}
               rows={1}
               tabIndex={0}
-              autoFocus
               autoComplete="off"
               autoCorrect="off"
               spellCheck={false}

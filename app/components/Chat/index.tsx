@@ -50,20 +50,20 @@ export default function Chat({ id, session, title }: ChatProps) {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    const handleScrollToBottom = () => {
-      if (
-        messagesRef.current &&
-        aiState?.messages?.length &&
-        messages?.length
-      ) {
-        scrollToBottom();
-      }
-    };
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [scrollRef]);
 
-    window.addEventListener('scroll-to-bottom', handleScrollToBottom);
+  useEffect(() => {
+    window.addEventListener('scroll-to-bottom', () => {
+      scrollToBottom();
+    });
 
     return () => {
-      window.removeEventListener('scroll-to-bottom', handleScrollToBottom);
+      window.removeEventListener('scroll-to-bottom', () => {
+        scrollToBottom();
+      });
     };
   }, [
     aiState?.messages?.length,

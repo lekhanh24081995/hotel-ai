@@ -30,7 +30,7 @@ export default async function Layout({
   return (
     <main>
       <div className="relative mx-auto w-full bg-gray-200 transition-all">
-        <BackButton className="fixed left-0 top-0 z-10 hidden h-16 w-[68px] cursor-pointer border-b bg-white p-6 md:flex" />
+        {/* <BackButton className="fixed left-0 top-0 z-10 hidden h-16 w-[68px] cursor-pointer border-b bg-white p-6 md:flex" /> */}
         <Header />
 
         <div className="flex h-screen max-h-screen w-full bg-background pt-16">
