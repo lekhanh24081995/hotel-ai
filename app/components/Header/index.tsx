@@ -12,6 +12,7 @@ import { auth } from '@/auth';
 
 async function UserOrLogin() {
   const session = await auth();
+
   return (
     <>
       {session?.user && (

@@ -9,7 +9,7 @@ import {
   DocumentChartBarIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import { clearSession, logout } from '@/app/lib/actions';
+import { logoutAndClearSession } from '@/app/lib/actions';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { useRouter } from 'next/navigation';
 
@@ -53,13 +53,8 @@ const MyMenu = ({ children, user }: Props) => {
 
   const handleSignOut = async () => {
     try {
-      const logoutRes = await logout();
+      const res = await logoutAndClearSession();
 
-      if (logoutRes.error) {
-        console.log('Logout failed', logoutRes.error);
-      }
-
-      const res = await clearSession();
       router.push(res.redirect);
       router.refresh();
     } catch (error) {

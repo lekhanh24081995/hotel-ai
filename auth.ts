@@ -41,9 +41,6 @@ declare module 'next-auth' {
       _id: string;
       updatedAt: string;
     };
-    access_token: string;
-    refresh_token: string;
-    error: string;
   }
 }
 declare module 'next-auth/jwt' {
@@ -64,10 +61,6 @@ declare module 'next-auth/jwt' {
       _id: string;
       updatedAt: string;
     };
-    access_token: string;
-    refresh_token: string;
-    access_token_expires: number;
-    error: string;
   }
 }
 
@@ -77,7 +70,7 @@ class UnverifiedUser extends CredentialsSignin {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
-  session: { strategy: 'jwt', maxAge: 24 * 60 * 60 },
+  session: { strategy: 'jwt' },
   providers: [
     Google({
       clientId: process.env.GOOGLE_ID as string,

@@ -1,4 +1,4 @@
-import { NextFetchEvent, NextRequest } from 'next/server';
+import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 import { MiddlewareFactory } from './types';
 import { auth } from '@/auth';
 import {
@@ -26,7 +26,6 @@ export const withAuth: MiddlewareFactory = (next) => {
           return handleError(error, 401);
         }
       }
-
       const session = await auth();
 
       const isOnDashboard = pathname.startsWith(LIST_ROUTER.DASHBOARD);

@@ -1,5 +1,4 @@
 import Chat from '@/app/components/Chat';
-import { logout } from '@/app/lib/actions';
 import { AI } from '@/app/lib/chat/actions';
 import { Session } from '@/app/lib/types/chat';
 import { nanoid } from '@/app/lib/utils';

@@ -14,7 +14,7 @@ import { LoadingIcon } from '../../LoadingIcon';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { IconFacebook, IconGitHub, IconGoogle } from '../../ui/icons';
-import { socialLogin } from '@/app/lib/actions';
+import { authSocialLogin } from '@/app/lib/actions';
 
 export type LoginFormData = {
   email: string;
@@ -97,15 +97,15 @@ function LoginForm() {
       <div className="my-10 mt-6 flex justify-center gap-4">
         <IconGitHub
           className="size-8 cursor-pointer"
-          onClick={() => socialLogin('github')}
+          onClick={() => authSocialLogin('github')}
         />
         <IconGoogle
           className="size-8 cursor-pointer"
-          onClick={() => socialLogin('google')}
+          onClick={() => authSocialLogin('google')}
         />
         <IconFacebook
           className="size-8 cursor-pointer"
-          onClick={() => socialLogin('facebook')}
+          onClick={() => authSocialLogin('facebook')}
         />
       </div>
 
