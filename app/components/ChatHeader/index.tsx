@@ -8,6 +8,7 @@ import { ChatShareDialog } from '../ChatShareDialog';
 import { useAIState } from 'ai/rsc';
 import { shareChat } from '@/app/lib/services/chat';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import { ChatSearchDialog } from '../ChatSearchDialog';
 
 type Props = {
   id: string;
@@ -17,6 +18,7 @@ type Props = {
 export default function ChatHeader({ id, title }: Props) {
   const { isSidebarOpen, toggleSidebar } = useDashboardContext();
   const [shareDialogOpen, setShareDialogOpen] = useState(false);
+  const [searchDialogOpen, setSearchDialogOpen] = useState(false);
   const [aiState] = useAIState();
 
   return (
@@ -60,15 +62,27 @@ export default function ChatHeader({ id, title }: Props) {
             />
           </>
         )}
-        <Tooltip delayDuration={200}>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <MagnifyingGlassIcon className="h-5 w-5" />
-              <span className="sr-only">Search</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Search</TooltipContent>
-        </Tooltip>
+        <>
+          <Tooltip delayDuration={200}>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full"
+                onClick={() => setSearchDialogOpen(!searchDialogOpen)}
+              >
+                <MagnifyingGlassIcon className="h-5 w-5" />
+                <span className="sr-only">Search</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Search</TooltipContent>
+          </Tooltip>
+
+          <ChatSearchDialog
+            open={searchDialogOpen}
+            onOpenChange={setSearchDialogOpen}
+          />
+        </>
 
         <Tooltip delayDuration={200}>
           <TooltipTrigger asChild>

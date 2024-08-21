@@ -5,9 +5,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 type Props = {
   chats: Chat[];
+  isSearchList?: boolean;
 };
 
-export default function ChatSidebarList({ chats }: Props) {
+export default function ChatSidebarList({
+  chats,
+  isSearchList = false
+}: Props) {
   return (
     <AnimatePresence>
       <div className="grid gap-2">
@@ -25,6 +29,7 @@ export default function ChatSidebarList({ chats }: Props) {
                   chat={chat}
                   key={chat.id + index}
                   index={index}
+                  isSearchList={isSearchList}
                 />
               </motion.div>
             );

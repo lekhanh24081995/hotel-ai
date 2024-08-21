@@ -159,6 +159,30 @@ export async function saveChat(chat: Chat) {
   }
 }
 
+export async function searchChat(query: string) {
+  await mongooseConnect();
+  const session = await auth();
+
+  if (!session?.user.id) {
+    return [];
+  }
+
+  try {
+    const regExp = new RegExp(query.normalize('NFC'));
+    const chats = await ChatModel.find({
+      $and: [
+        { userId: session.user.id },
+        {
+          title: { $regex: regExp, $options: 'i' }
+        }
+      ]
+    }).sort({ createdAt: -1 });
+    return JSON.parse(JSON.stringify(chats)) as Chat[];
+  } catch (error) {
+    return [];
+  }
+}
+
 export async function refreshHistory(path: string) {
   await mongooseConnect();
   redirect(path);

@@ -15,7 +15,7 @@ type Props = {
 export default function ChatSidebarInner({ chats, isLoading }: Props) {
   const { toggleMobileSidebar } = useDashboardContext();
   return (
-    <div className="flex h-full w-full max-w-[unset] flex-col overflow-auto border-none px-4 py-6">
+    <div className="flex h-full w-full max-w-[unset] flex-col border-none px-4 py-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Avatar className="relative h-8 w-8 border bg-gray-800 text-white">
@@ -43,20 +43,18 @@ export default function ChatSidebarInner({ chats, isLoading }: Props) {
         </Button>
       </div>
       <div className="mt-4 flex-1 overflow-auto scrollbar-hide">
-        <div className="grid gap-2">
-          {isLoading ? (
-            <div className="flex flex-1 flex-col space-y-4 overflow-auto px-4">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-6 w-full shrink-0 animate-pulse rounded-lg bg-zinc-200"
-                />
-              ))}
-            </div>
-          ) : (
-            <ChatSidebarList chats={chats} />
-          )}
-        </div>
+        {isLoading ? (
+          <div className="flex flex-1 flex-col space-y-4 overflow-auto px-4">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div
+                key={i}
+                className="h-6 w-full shrink-0 animate-pulse rounded-lg bg-zinc-200"
+              />
+            ))}
+          </div>
+        ) : (
+          <ChatSidebarList chats={chats} />
+        )}
       </div>
     </div>
   );

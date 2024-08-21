@@ -4,7 +4,11 @@ import Link from 'next/link';
 import React from 'react';
 
 import { usePathname } from 'next/navigation';
-import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
+import {
+  ChatBubbleBottomCenterTextIcon,
+  EllipsisHorizontalCircleIcon,
+  EllipsisHorizontalIcon
+} from '@heroicons/react/24/outline';
 import { Chat } from '@/app/lib/types/chat';
 import { useDashboardContext } from '@/app/context/DashboardContext';
 import { LIST_ROUTER } from '@/app/lib/constants/common';
@@ -12,12 +16,14 @@ import { cn } from '@/app/lib/utils/common';
 import { Badge } from '../ui/badge';
 import { useLocalStorage } from '@/app/lib/hooks/use-local-storage';
 import { motion } from 'framer-motion';
+import { Button } from '../ui/button';
 
 type Props = {
   chat: Chat;
   index: number;
+  isSearchList: boolean;
 };
-export default function ChatSidebarItem({ chat }: Props) {
+export default function ChatSidebarItem({ chat, isSearchList }: Props) {
   const { toggleSidebar, toggleMobileSidebar } = useDashboardContext();
   const pathname = usePathname();
   const isActive = chat.path === pathname;
@@ -46,7 +52,7 @@ export default function ChatSidebarItem({ chat }: Props) {
       <Link
         href={`${LIST_ROUTER.CHAT}/${chat.id}`}
         className={cn(
-          'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted md:hidden',
+          'group flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted md:hidden',
           {
             'bg-muted': isActive
           }
@@ -93,19 +99,21 @@ export default function ChatSidebarItem({ chat }: Props) {
             )}
           </div>
         </div>
-        {newChatId === chat.id && (
+        <EllipsisHorizontalIcon className="relative h-6 w-6 rounded-full bg-transparent transition-all hover:text-primary md:opacity-0 md:hover:opacity-100" />
+
+        {/* {!isSearchList && newChatId === chat.id && (
           <Badge
             variant="secondary"
             className="relative -top-2 px-2 py-1 text-xs"
           >
             New
           </Badge>
-        )}
+        )} */}
       </Link>
       <Link
         href={`${LIST_ROUTER.CHAT}/${chat.id}`}
         className={cn(
-          'hidden items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted md:flex',
+          'group hidden items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted md:flex',
           {
             'bg-muted': isActive
           }
@@ -148,14 +156,17 @@ export default function ChatSidebarItem({ chat }: Props) {
             )}
           </div>
         </div>
-        {newChatId === chat.id && (
+
+        <EllipsisHorizontalIcon className="relative h-6 w-6 rounded-full bg-transparent transition-all hover:text-primary md:opacity-0 md:group-hover:opacity-100" />
+
+        {/* {!isSearchList && newChatId === chat.id && (
           <Badge
             variant="secondary"
-            className="relative bg-muted-foreground px-2 py-1 text-xs text-white"
+            className="relative bg-muted-foreground px-2 py-1 text-xs hover:text-muted-foreground"
           >
             New
           </Badge>
-        )}
+        )} */}
       </Link>
     </motion.div>
   );

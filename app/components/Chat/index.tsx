@@ -120,7 +120,7 @@ export default function Chat({ id, session, title }: ChatProps) {
   return (
     <div
       className={cn(
-        'flex flex-1 flex-col',
+        'flex flex-1 flex-col transition-all',
         isSidebarOpen ? 'md:pl-[300px]' : 'md:pl-0'
       )}
     >
