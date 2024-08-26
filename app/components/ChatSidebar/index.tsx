@@ -4,8 +4,8 @@ import { useDashboardContext } from '@/app/context/DashboardContext';
 import { Session } from '@/app/lib/types/chat';
 import { cn } from '@/app/lib/utils/common';
 import ChatSidebarInner from '../ChatSidebarInner';
-import { useChats } from '@/app/lib/hooks/use-chats';
-import { usePathname } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { getChats } from '@/app/lib/services/chat';
 
 interface Props {
   className?: string;
@@ -13,8 +13,10 @@ interface Props {
 }
 export default function ChatSidebar({ className, session }: Props) {
   const { isSidebarOpen } = useDashboardContext();
-  const pathname = usePathname();
-  const { data: chats, isLoading } = useChats(session.user.id, [pathname]);
+  const { data: chats, isLoading } = useQuery({
+    queryKey: ['chats'],
+    queryFn: () => getChats(session.user.id)
+  });
 
   return (
     <nav
@@ -24,7 +26,11 @@ export default function ChatSidebar({ className, session }: Props) {
         isSidebarOpen ? 'md:translate-x-0' : 'md:-translate-x-full'
       )}
     >
-      <ChatSidebarInner chats={chats || []} isLoading={isLoading} />
+      <ChatSidebarInner
+        key={JSON.stringify(chats)}
+        chats={chats || []}
+        isLoading={isLoading}
+      />
     </nav>
   );
 }

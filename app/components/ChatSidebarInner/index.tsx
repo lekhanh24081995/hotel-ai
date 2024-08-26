@@ -42,9 +42,9 @@ export default function ChatSidebarInner({ chats, isLoading }: Props) {
           </>
         </Button>
       </div>
-      <div className="mt-4 flex-1 overflow-auto scrollbar-hide">
+      <div className="mt-4 flex-1 overflow-auto transition-all">
         {isLoading ? (
-          <div className="flex flex-1 flex-col space-y-4 overflow-auto px-4">
+          <div className="flex flex-1 flex-col space-y-4 px-4">
             {Array.from({ length: 10 }).map((_, i) => (
               <div
                 key={i}

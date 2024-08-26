@@ -43,7 +43,6 @@ export function ChatSearchDialog({ ...props }: ChatSearchDialog) {
     gcTime: 0,
     enabled: !!debounceQuery
   });
-  console.log({ debounceQuery, chats });
   return (
     <Dialog {...props}>
       <DialogContent>
@@ -59,7 +58,6 @@ export function ChatSearchDialog({ ...props }: ChatSearchDialog) {
           name="query"
           render={({ field: { value, onChange } }) => (
             <Input
-              {...props}
               value={value}
               onChange={onChange}
               placeholder="Search chat"
@@ -69,7 +67,7 @@ export function ChatSearchDialog({ ...props }: ChatSearchDialog) {
         />
 
         {chats && !!chats.length && (
-          <div className="max-h-[350px] overflow-auto scrollbar-hide">
+          <div className="max-h-[350px] overflow-auto scrollbar-hide md:hover:scrollbar-default">
             <ChatSidebarList chats={chats} isSearchList={true} />
           </div>
         )}

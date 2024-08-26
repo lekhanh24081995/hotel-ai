@@ -66,7 +66,7 @@ export const DashboardProvider = ({ children }: DashboardProviderProps) => {
       toggleMobileSidebar,
       isLoading
     }),
-    [isSidebarOpen, isLoading, isMobileSidebarOpen]
+    [isSidebarOpen, isMobileSidebarOpen, isLoading]
   );
 
   if (isLoading) {

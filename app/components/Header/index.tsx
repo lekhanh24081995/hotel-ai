@@ -3,7 +3,7 @@ import {
   ChevronDownIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import MyMenu from '../MyMenu';
+import AvatarMenu from '../AvatarMenu';
 import Logo from '../Logo';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Suspense } from 'react';
@@ -23,7 +23,7 @@ async function UserOrLogin() {
           </div>
 
           <div className="flex items-stretch gap-4">
-            <MyMenu user={session.user}>
+            <AvatarMenu user={session.user}>
               <div className="relative">
                 <Avatar className="relative h-8 w-8 cursor-pointer bg-red-1 text-white md:h-10 md:w-10">
                   <AvatarImage src={session.user?.image!} />
@@ -35,7 +35,7 @@ async function UserOrLogin() {
                   <ChevronDownIcon className="cursor-pointer " />
                 </span>
               </div>
-            </MyMenu>
+            </AvatarMenu>
           </div>
         </div>
       )}

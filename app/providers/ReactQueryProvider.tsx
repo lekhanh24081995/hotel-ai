@@ -10,21 +10,21 @@ function handleError(error: any) {
   console.log(error);
 }
 
-function ReactQueryProvider({ children }: React.PropsWithChildren) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false
-      }
-    },
-    queryCache: new QueryCache({
-      onError: handleError
-    }),
-    mutationCache: new MutationCache({
-      onError: handleError
-    })
-  });
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  },
+  queryCache: new QueryCache({
+    onError: handleError
+  }),
+  mutationCache: new MutationCache({
+    onError: handleError
+  })
+});
 
+function ReactQueryProvider({ children }: React.PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );

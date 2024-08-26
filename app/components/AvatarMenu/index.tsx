@@ -46,7 +46,7 @@ const items = [
   }
 ];
 
-const MyMenu = ({ children, user }: Props) => {
+const AvatarMenu = ({ children, user }: Props) => {
   const router = useRouter();
 
   const handleClickItem = async (item: MenuItem) => {};
@@ -124,4 +124,4 @@ const MyMenu = ({ children, user }: Props) => {
   );
 };
 
-export default MyMenu;
+export default AvatarMenu;

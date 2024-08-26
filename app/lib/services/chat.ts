@@ -12,7 +12,6 @@ import { auth } from '@/auth';
 
 export async function getChats(userId: string) {
   await mongooseConnect();
-
   if (!userId) {
     return [];
   }
@@ -50,15 +49,14 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
     };
   }
 
-  const uid = String(await ChatModel.findOne({ id }).select('userId'));
+  const chat = await ChatModel.findOne({ id, path, userId: session.user.id });
 
-  if (uid !== session?.user.id) {
+  if (!chat) {
     return {
-      error: 'Unauthorized'
+      error: 'Chat not found'
     };
   }
-
-  await ChatModel.findByIdAndDelete(id);
+  await ChatModel.findOneAndDelete({ id });
 
   revalidatePath(LIST_ROUTER.CHATBOT);
   return revalidatePath(path);

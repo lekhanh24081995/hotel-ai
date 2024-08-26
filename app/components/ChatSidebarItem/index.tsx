@@ -1,13 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
-
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import {
   ChatBubbleBottomCenterTextIcon,
-  EllipsisHorizontalCircleIcon,
-  EllipsisHorizontalIcon
+  EllipsisHorizontalIcon,
+  EllipsisVerticalIcon
 } from '@heroicons/react/24/outline';
 import { Chat } from '@/app/lib/types/chat';
 import { useDashboardContext } from '@/app/context/DashboardContext';
@@ -16,7 +15,10 @@ import { cn } from '@/app/lib/utils/common';
 import { Badge } from '../ui/badge';
 import { useLocalStorage } from '@/app/lib/hooks/use-local-storage';
 import { motion } from 'framer-motion';
-import { Button } from '../ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import ChatSidebarActionsMenu from '../ChatSidebarActionsMenu';
+import { ChatShareDialog } from '../ChatShareDialog';
+import { ChatDeleteDialog } from '../ChatDeleteDiaglog';
 
 type Props = {
   chat: Chat;
@@ -24,11 +26,23 @@ type Props = {
   isSearchList: boolean;
 };
 export default function ChatSidebarItem({ chat, isSearchList }: Props) {
-  const { toggleSidebar, toggleMobileSidebar } = useDashboardContext();
+  const { toggleMobileSidebar } = useDashboardContext();
   const pathname = usePathname();
   const isActive = chat.path === pathname;
   const [newChatId] = useLocalStorage('newChatId', null);
   const shouldAnimate = isActive && newChatId;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const [shareDialogOpen, setShareDialogOpen] = React.useState(false);
+
+  const handleAction = (item: MenuItem) => {
+    if (item.title === 'Delete chat') {
+      setDeleteDialogOpen(!deleteDialogOpen);
+    } else if (item.title === 'Share chat') {
+      setShareDialogOpen(!shareDialogOpen);
+    }
+    setIsMenuOpen(!isMenuOpen);
+  };
   return (
     <motion.div
       className="relative h-10"
@@ -49,24 +63,24 @@ export default function ChatSidebarItem({ chat, isSearchList }: Props) {
         ease: 'easeIn'
       }}
     >
-      <Link
-        href={`${LIST_ROUTER.CHAT}/${chat.id}`}
+      <div
         className={cn(
-          'group flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted md:hidden',
+          'group flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted',
           {
             'bg-muted': isActive
           }
         )}
-        onClick={() => {
-          toggleSidebar();
-          toggleMobileSidebar();
-        }}
       >
-        <div
-          className="flex flex-1 items-center gap-2 truncate"
+        <Link
+          href={`${LIST_ROUTER.CHAT}/${chat.id}`}
+          className="flex flex-1 items-center gap-2 truncate md:hidden"
           title={chat.title}
+          onClick={toggleMobileSidebar}
         >
           <ChatBubbleBottomCenterTextIcon className="h-6 w-6" />
+          {!isSearchList && newChatId === chat.id && (
+            <Badge className="relative px-2 py-1 text-xs">New</Badge>
+          )}
           <div className="truncate font-semibold">
             {shouldAnimate ? (
               chat.title.split('').map((character, index) => (
@@ -98,32 +112,16 @@ export default function ChatSidebarItem({ chat, isSearchList }: Props) {
               <span>{chat.title}</span>
             )}
           </div>
-        </div>
-        <EllipsisHorizontalIcon className="relative h-6 w-6 rounded-full bg-transparent transition-all hover:text-primary md:opacity-0 md:hover:opacity-100" />
-
-        {/* {!isSearchList && newChatId === chat.id && (
-          <Badge
-            variant="secondary"
-            className="relative -top-2 px-2 py-1 text-xs"
-          >
-            New
-          </Badge>
-        )} */}
-      </Link>
-      <Link
-        href={`${LIST_ROUTER.CHAT}/${chat.id}`}
-        className={cn(
-          'group hidden items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted md:flex',
-          {
-            'bg-muted': isActive
-          }
-        )}
-      >
-        <div
-          className="flex flex-1 items-center gap-2 truncate"
+        </Link>
+        <Link
+          href={`${LIST_ROUTER.CHAT}/${chat.id}`}
+          className="hidden flex-1 items-center gap-2 truncate md:flex"
           title={chat.title}
         >
           <ChatBubbleBottomCenterTextIcon className="h-6 w-6" />
+          {!isSearchList && newChatId === chat.id && (
+            <Badge className="relative px-2 py-1 text-xs">New</Badge>
+          )}
           <div className="truncate font-semibold">
             {shouldAnimate ? (
               chat.title.split('').map((character, index) => (
@@ -155,19 +153,37 @@ export default function ChatSidebarItem({ chat, isSearchList }: Props) {
               <span>{chat.title}</span>
             )}
           </div>
-        </div>
-
-        <EllipsisHorizontalIcon className="relative h-6 w-6 rounded-full bg-transparent transition-all hover:text-primary md:opacity-0 md:group-hover:opacity-100" />
-
-        {/* {!isSearchList && newChatId === chat.id && (
-          <Badge
-            variant="secondary"
-            className="relative bg-muted-foreground px-2 py-1 text-xs hover:text-muted-foreground"
+        </Link>
+        {!isSearchList && (
+          <ChatSidebarActionsMenu
+            onAction={handleAction}
+            open={isMenuOpen}
+            onOpenChange={setIsMenuOpen}
           >
-            New
-          </Badge>
-        )} */}
-      </Link>
+            <div>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <EllipsisVerticalIcon className="relative h-6 w-6 cursor-pointer rounded-full bg-transparent transition-all hover:text-primary md:opacity-0 md:group-hover:opacity-100" />
+                </TooltipTrigger>
+                <TooltipContent>Options</TooltipContent>
+              </Tooltip>
+            </div>
+          </ChatSidebarActionsMenu>
+        )}
+
+        <ChatShareDialog
+          chat={chat}
+          open={shareDialogOpen}
+          onOpenChange={setShareDialogOpen}
+          onCopy={() => setShareDialogOpen(false)}
+        />
+        <ChatDeleteDialog
+          chat={chat}
+          open={deleteDialogOpen}
+          onOpenChange={setDeleteDialogOpen}
+          onCancel={() => setDeleteDialogOpen(false)}
+        />
+      </div>
     </motion.div>
   );
 }

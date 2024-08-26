@@ -6,7 +6,6 @@ import { useDashboardContext } from '@/app/context/DashboardContext';
 import { IconShare } from '../ui/icons';
 import { ChatShareDialog } from '../ChatShareDialog';
 import { useAIState } from 'ai/rsc';
-import { shareChat } from '@/app/lib/services/chat';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import { ChatSearchDialog } from '../ChatSearchDialog';
 
@@ -53,7 +52,6 @@ export default function ChatHeader({ id, title }: Props) {
               open={shareDialogOpen}
               onOpenChange={setShareDialogOpen}
               onCopy={() => setShareDialogOpen(false)}
-              shareChat={shareChat}
               chat={{
                 id,
                 title,

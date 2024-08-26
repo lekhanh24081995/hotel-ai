@@ -19,6 +19,7 @@ import { cn } from '@/app/lib/utils/common';
 import { useDashboardContext } from '@/app/context/DashboardContext';
 import { toast } from 'react-toastify';
 import ExampleMessages from '../ExampleMessages';
+import { useQueryClient } from '@tanstack/react-query';
 
 export interface ChatProps extends React.ComponentProps<'div'> {
   initialMessages?: Message[];
@@ -48,6 +49,7 @@ export default function Chat({ id, session, title }: ChatProps) {
   const { messagesRef, scrollRef, visibilityRef, isAtBottom, scrollToBottom } =
     useScrollAnchor();
   const [refresh, setRefresh] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -85,8 +87,9 @@ export default function Chat({ id, session, title }: ChatProps) {
     if (!refresh && messagesLength >= 2) {
       setRefresh(true);
       router.refresh();
+      queryClient.invalidateQueries({ queryKey: ['chats'] });
     }
-  }, [router, refresh, aiState?.messages?.length]);
+  }, [router, refresh, aiState?.messages?.length, queryClient]);
 
   useEffect(() => {
     setNewChatId(id);

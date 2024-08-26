@@ -27,3 +27,9 @@ interface IResetPasswordToken extends Base {
   user: string;
   reset_password_token: string;
 }
+interface MenuItem {
+  title: string;
+  href?: string;
+  icon: React.ReactNode;
+  keyBinding?: string;
+}

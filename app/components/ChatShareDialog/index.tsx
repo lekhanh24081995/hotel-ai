@@ -14,16 +14,15 @@ import { useCopyToClipboard } from '@/app/lib/hooks/use-copy-to-clipboard';
 import { Chat, ServerActionResult } from '@/app/lib/types/chat';
 import { toast } from 'react-toastify';
 import { Button } from '../ui/button';
+import { shareChat } from '@/app/lib/services/chat';
 
 interface ChatShareDialogProps extends DialogProps {
   chat: Pick<Chat, 'id' | 'title' | 'messages'>;
-  shareChat: (id: string) => ServerActionResult<Chat>;
   onCopy: () => void;
 }
 
 export function ChatShareDialog({
   chat,
-  shareChat,
   onCopy,
   ...props
 }: ChatShareDialogProps) {

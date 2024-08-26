@@ -25,12 +25,12 @@ import { auth } from '@/auth';
 import ChatMap from '@/app/components/ChatMap';
 import ChatHotel from '@/app/components/ChatHotels';
 import ChatHotelDetail from '@/app/components/ChatHotelDetail';
-// import { createOpenAI as createGroq } from '@ai-sdk/openai';
+import { createOpenAI as createGroq } from '@ai-sdk/openai';
 
-// const groq = createGroq({
-//   baseURL: 'https://api.groq.com/openai/v1',
-//   apiKey: process.env.GROQ_API_KEY
-// });
+const groq = createGroq({
+  baseURL: 'https://api.groq.com/openai/v1',
+  apiKey: process.env.GROQ_API_KEY
+});
 
 export async function submitUserMessage(content: string) {
   'use server';
@@ -41,7 +41,6 @@ export async function submitUserMessage(content: string) {
     interactions.length > 0
       ? `${interactions.join('\n\n')}\n\n${content}`
       : content;
-  let isStreamText: boolean = false;
 
   aiState.update({
     ...aiState.get(),
@@ -68,8 +67,8 @@ export async function submitUserMessage(content: string) {
   (async () => {
     try {
       const result = await streamText({
-        model: google('models/gemini-1.5-flash-latest'),
-        // model: groq('llama-3.1-70b-versatile'),
+        // model: google('models/gemini-1.5-pro-latest'),
+        model: groq('llama-3.1-70b-versatile'),
         temperature: 0,
         tools: {
           showHotels: {
@@ -145,7 +144,6 @@ Tối: Ăn tối tại nhà hàng và dạo phố đi bộ quanh Hồ Hoàn Ki�
               }
             ]
           });
-          isStreamText = true;
         } else if (type === 'tool-call') {
           const { toolName, args } = delta;
 
@@ -232,19 +230,9 @@ Tối: Ăn tối tại nhà hàng và dạo phố đi bộ quanh Hồ Hoàn Ki�
         }
       }
 
-      if (isStreamText) {
-        aiState.done({
-          ...aiState.get(),
-          messages: [
-            ...aiState.get().messages,
-            {
-              id: nanoid(),
-              role: 'assistant',
-              content: textContent
-            }
-          ]
-        });
-      }
+      aiState.done({
+        ...aiState.get()
+      });
       uiStream.done();
       textStream.done();
       messageStream.done();
@@ -329,7 +317,11 @@ export const AI = createAI<AIState, UIState>({
         messages: filterMessages,
         path
       };
-      await saveChat(chat);
+      try {
+        await saveChat(chat);
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       return;
     }

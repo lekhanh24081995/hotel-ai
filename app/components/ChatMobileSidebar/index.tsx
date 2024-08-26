@@ -4,16 +4,18 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import ChatSidebarInner from '../ChatSidebarInner';
 import { useDashboardContext } from '@/app/context/DashboardContext';
 import { Session } from '@/app/lib/types/chat';
-import { usePathname } from 'next/navigation';
-import { useChats } from '@/app/lib/hooks/use-chats';
+import { useQuery } from '@tanstack/react-query';
+import { getChats } from '@/app/lib/services/chat';
 interface Props {
   children?: React.ReactNode;
   session: Session;
 }
 export default function ChatMobileSidebar({ children, session }: Props) {
   const { isMobileSidebarOpen, toggleMobileSidebar } = useDashboardContext();
-  const pathname = usePathname();
-  const { data: chats, isLoading } = useChats(session.user.id, [pathname]);
+  const { data: chats, isLoading } = useQuery({
+    queryKey: ['chats'],
+    queryFn: () => getChats(session.user.id)
+  });
 
   return (
     <Sheet open={isMobileSidebarOpen} onOpenChange={toggleMobileSidebar}>
