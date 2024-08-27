@@ -37,3 +37,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## Deploy on self-hosting
+
+1. Update `NEXT_PUBLIC_API_URL` in .env file. 
+```bash
+NEXT_PUBLIC_API_URL=http://<HOST>:<PORT>/api/v1
+```
+
+2. Start up container
+```bash
+docker compose up -d --build
+```
+
+Please refer to `docker-compose.yml` and `Dockerfile` for more information.
