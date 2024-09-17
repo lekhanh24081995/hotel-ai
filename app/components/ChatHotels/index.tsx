@@ -24,7 +24,7 @@ const ChatHotel = ({ route }: ListHotelsProps) => {
               className="grid gap-4 py-6 first:pt-0 last:pb-0"
               key={city + index}
             >
-              <h1 className="text-2xl font-semibold">{city}</h1>
+              <h1 className="text-base font-semibold md:text-2xl">{city}</h1>
               <ChatHotelList city={city} />
             </div>
           );

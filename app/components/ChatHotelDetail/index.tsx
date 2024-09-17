@@ -2,10 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import ChatSuggestion from '../ChatSuggestion';
-import {
-  requestGetHotelDetail,
-  requestSearchHotels
-} from '@/app/lib/services/hotels';
+import { requestSearchHotels } from '@/app/lib/services/hotels';
 import HotelDetail from '../HotelDetail';
 import { BotMessage } from '../message';
 import { usePathname } from 'next/navigation';

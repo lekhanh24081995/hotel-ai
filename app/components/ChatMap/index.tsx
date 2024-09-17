@@ -237,36 +237,38 @@ export default function ChatMap({
   );
 
   return (
-    <div className="h-full w-full space-y-4 md:max-w-[75%]">
-      <BotMessage
-        showAvatar={false}
-        showAction={false}
-        content={`Here's the map of route:\n${route.join(', ')}`}
-      />
+    <div className="space-y-4">
+      <div className="h-full w-full space-y-4 md:max-w-[75%]">
+        <BotMessage
+          showAvatar={false}
+          showAction={false}
+          content={`Here's the map of route:\n${route.join(', ')}`}
+        />
 
-      <div className="h-[80vh]">
-        <Map
-          ref={mapRef}
-          reuseMaps
-          {...viewState}
-          onMove={(event) => setViewState(event.viewState)}
-          onClick={handleMapClick}
-          style={{
-            width: '100%',
-            height: '100%'
-          }}
-          mapStyle="mapbox://styles/mapbox/streets-v9"
-          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-        >
-          <FullscreenControl />
-          <NavigationControl />
-          <ScaleControl />
-          <Source id="line" type="geojson" data={geojson}>
-            <Layer {...layerStyle} />
-          </Source>
-          {routeMarkers}
-          {hotelMarkers}
-        </Map>
+        <div className="h-[80vh]">
+          <Map
+            ref={mapRef}
+            reuseMaps
+            {...viewState}
+            onMove={(event) => setViewState(event.viewState)}
+            onClick={handleMapClick}
+            style={{
+              width: '100%',
+              height: '100%'
+            }}
+            mapStyle="mapbox://styles/mapbox/streets-v9"
+            mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+          >
+            <FullscreenControl />
+            <NavigationControl />
+            <ScaleControl />
+            <Source id="line" type="geojson" data={geojson}>
+              <Layer {...layerStyle} />
+            </Source>
+            {routeMarkers}
+            {hotelMarkers}
+          </Map>
+        </div>
       </div>
 
       <ChatSuggestion />

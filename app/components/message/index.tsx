@@ -20,7 +20,7 @@ export function UserMessage({ children }: { children: React.ReactNode }) {
     <div className="group relative flex items-start justify-end">
       <div
         className={cn(
-          'flex flex-row-reverse overflow-auto whitespace-pre-line break-words rounded-userMessageBorder bg-[#e3fcf7] px-4 py-2 text-foreground shadow-md sm:max-w-sm xl:max-w-2xl'
+          'flex flex-row-reverse overflow-auto whitespace-pre-line break-words rounded-userMessageBorder bg-[#e3fcf7] px-4 py-2 text-sm text-foreground shadow-md sm:max-w-sm md:text-base xl:max-w-2xl'
         )}
       >
         {children}
@@ -62,11 +62,11 @@ export function BotMessage({
       >
         <div
           className={cn(
-            'flex overflow-auto whitespace-pre-line break-words rounded-botMessageBorder bg-gray-100 px-4 py-2 text-foreground shadow-md sm:max-w-sm md:max-w-2xl'
+            'flex overflow-auto whitespace-pre-line break-words rounded-botMessageBorder bg-gray-100 px-4 py-2 text-sm text-foreground shadow-md sm:max-w-sm md:max-w-2xl md:text-base'
           )}
         >
           <MemoizedReactMarkdown
-            className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 overflow-auto whitespace-pre-line break-words"
+            className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 overflow-auto whitespace-pre-line break-words text-sm md:text-base"
             remarkPlugins={[remarkGfm, remarkMath]}
             components={{
               p({ children }) {
@@ -139,6 +139,9 @@ export function SystemMessage({ children }: { children: React.ReactNode }) {
 }
 
 export function SpinnerMessage() {
+  useEffect(() => {
+    window.dispatchEvent(new Event('scroll-to-bottom'));
+  });
   return (
     <div className="group relative flex items-start">
       <div className="flex size-[25px] shrink-0 select-none items-center justify-center rounded-lg border bg-background shadow-sm">

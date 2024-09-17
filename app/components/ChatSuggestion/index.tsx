@@ -19,7 +19,7 @@ export default function ChatSuggestion() {
       {suggestions.map((suggestion) => (
         <div
           key={suggestion}
-          className="flex cursor-pointer items-center gap-2 rounded-xl bg-zinc-50 px-3 py-2 text-sm transition-colors hover:bg-zinc-100"
+          className="flex cursor-pointer items-center gap-2 rounded-xl bg-zinc-50 px-3 py-2 text-xs transition-colors hover:bg-zinc-100 sm:text-sm md:text-base"
           onClick={async () => {
             const response = await submitUserMessage(suggestion);
             setMessages((currentMessages: any[]) => [
@@ -28,7 +28,7 @@ export default function ChatSuggestion() {
             ]);
           }}
         >
-          <SparklesIcon className="h-6 w-6" />
+          <SparklesIcon className="h-5 w-5 md:h-6 md:w-6" />
           {suggestion}
         </div>
       ))}

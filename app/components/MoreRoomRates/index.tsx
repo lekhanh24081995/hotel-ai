@@ -36,19 +36,19 @@ function MoreRoomRates({ items, currency, limit }: Props) {
       {moreRooms.length > 0 &&
         moreRooms.map((room, index) => (
           <tr key={index} className="border-b border-gray-200">
-            <td className="border-b border-gray-200 px-4 py-2">
+            <td className="border-b border-gray-200 px-4 py-2 text-xs md:text-sm">
               {room.room_type}
             </td>
-            <td className="border-b border-gray-200 px-4 py-2 text-center">
+            <td className="border-b border-gray-200 px-4 py-2 text-center text-xs md:text-sm">
               {room.price.toLocaleString()} {currency}
             </td>
-            <td className="border-b border-gray-200 px-4 py-2 text-center">
+            <td className="border-b border-gray-200 px-4 py-2 text-center text-xs md:text-sm">
               {room.price_type}
             </td>
-            <td className="border-b border-gray-200 px-4 py-2 text-center">
+            <td className="border-b border-gray-200 px-4 py-2 text-center text-xs md:text-sm">
               {format(room.period.start_date, 'yyyy-MM-dd')}
             </td>
-            <td className="border-b border-gray-200 px-4 py-2 text-center">
+            <td className="border-b border-gray-200 px-4 py-2 text-center text-xs md:text-sm">
               {format(room.period.end_date, 'yyyy-MM-dd')}
             </td>
           </tr>
