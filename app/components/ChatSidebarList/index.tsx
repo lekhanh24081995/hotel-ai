@@ -14,7 +14,7 @@ export default function ChatSidebarList({
 }: Props) {
   return (
     <AnimatePresence>
-      <div className="mr-2 grid gap-2 overflow-y-auto pb-6">
+      <div className="mr-2 grid gap-2 pb-6">
         {chats.length ? (
           chats.map((chat, index) => {
             return (

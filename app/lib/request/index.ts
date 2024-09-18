@@ -4,6 +4,7 @@ import {
   checkUserTokenUnauthorized,
   createRefreshUserToken
 } from './createRefreshUserToken';
+import { APP_API_KEY } from '../constants/common';
 
 export enum BodyType {
   Json,
@@ -22,7 +23,8 @@ const request = fetchInterceptor({
   baseUrl: process.env.NEXT_PUBLIC_API_URL || '',
   headers: {
     'Content-Type': 'application/json',
-    'Accept-Language': 'en'
+    'Accept-Language': 'en',
+    'x-api-key': APP_API_KEY as string
   },
   interceptors: {
     response: async (res, req, fetch) => {

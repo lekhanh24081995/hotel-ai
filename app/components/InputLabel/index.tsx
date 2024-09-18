@@ -21,7 +21,7 @@ export const InputLabel: FC<InputLabelProps> = ({ label, error, ...props }) => {
           {label}
         </span>
       </label>
-      <p className="text-sm text-red-500">{error?.message}</p>
+      {error && <p className="text-sm text-red-500">{error?.message}</p>}
     </div>
   );
 };

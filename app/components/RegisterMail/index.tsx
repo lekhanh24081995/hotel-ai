@@ -32,7 +32,7 @@ export const registerMail = (url: string, token: string, email: string) => `
             margin-bottom: 20px;
         }
         .header h1 {
-            color: #007bff;
+            color: #007bff !important;
         }
         .content {
             padding: 20px 0;
@@ -50,8 +50,8 @@ export const registerMail = (url: string, token: string, email: string) => `
         .link-button {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
+            background-color: #007bff !important;
+            color: #fff !important;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s;

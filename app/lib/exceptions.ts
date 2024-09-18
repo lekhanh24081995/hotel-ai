@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { INVALID_TOKEN, UNAUTHORIZED_ACCESS } from './constants/errors';
-import { ResultCode } from './utils';
+import { getMessageFromCode, ResultCode } from './utils';
 
 export class FetchException extends Error {
   constructor(
@@ -115,6 +115,14 @@ export class ApiError extends Error {
           field: 'email'
         }
       ]
+    );
+  }
+
+  static fromSendEmailError(): ApiError {
+    return new ApiError(
+      'RE-0002',
+      ResultCode.UnknownError,
+      getMessageFromCode(ResultCode.UnknownError)
     );
   }
 

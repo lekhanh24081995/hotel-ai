@@ -91,6 +91,8 @@ export const getMessageFromCode = (resultCode: string) => {
       return 'Something went wrong, please try again!';
     case ResultCode.UserLoggedIn:
       return 'Login successful. Redirecting...!';
+    default:
+      return 'Something went wrong, please try again!';
   }
 };
 

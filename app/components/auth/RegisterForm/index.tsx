@@ -77,7 +77,8 @@ function RegisterForm() {
         router.refresh();
       }
     }
-  }, [email, result, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result, router]);
   return (
     <>
       <form action={dispatch}>
@@ -108,25 +109,26 @@ function RegisterForm() {
             )}
           />
 
-          <Controller
-            control={control}
-            name="password"
-            render={({ field: { value, onChange } }) => (
-              <div className="grid gap-1">
-                <InputLabel
-                  required
-                  label={t('password_field').toUpperCase()}
-                  name="password"
-                  type="password"
-                  value={value}
-                  onChange={onChange}
-                />
-                <p className="text-red-500">{result?.errors?.password}</p>
-              </div>
-            )}
-          />
-
-          {password && <PasswordStrength passStrength={passStrength} />}
+          <div className="space-y-2">
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { value, onChange } }) => (
+                <div className="grid gap-1">
+                  <InputLabel
+                    required
+                    label={t('password_field').toUpperCase()}
+                    name="password"
+                    type="password"
+                    value={value}
+                    onChange={onChange}
+                  />
+                  <p className="text-red-500">{result?.errors?.password}</p>
+                </div>
+              )}
+            />
+            {password && <PasswordStrength passStrength={passStrength} />}
+          </div>
 
           <div className="grid gap-1">
             <InputLabel

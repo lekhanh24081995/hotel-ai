@@ -136,21 +136,39 @@ export async function POST(req: Request) {
       register_token
     });
 
-    const transporter = nodemailer.createTransport({
-      host: MAILTRAP.HOST,
-      port: Number(MAILTRAP.PORT),
-      auth: {
-        user: MAILTRAP.USER,
-        pass: MAILTRAP.PASSWORD
-      }
-    });
-    await transporter.sendMail({
-      from: '"Hotel Project Team" <hotel@administration.com>',
-      to: user.email,
-      subject: 'Account Registration Verification',
-      text: 'Thank you for registering with us! Please use the following link to verify your account:',
-      html: registerMail(url.origin, register_token, user.email)
-    });
+    let transporter;
+    if (process.env.NODE_ENV === 'production') {
+      transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
+        }
+      });
+    } else {
+      transporter = nodemailer.createTransport({
+        host: MAILTRAP.HOST,
+        port: Number(MAILTRAP.PORT),
+        auth: {
+          user: MAILTRAP.USER,
+          pass: MAILTRAP.PASSWORD
+        }
+      });
+    }
+
+    try {
+      const res = await transporter.sendMail({
+        from: '"Hotel AI Team" <hotelai@administration.com>',
+        to: user.email,
+        subject: 'Account Registration Verification',
+        text: 'Thank you for registering with us! Please use the following link to verify your account:',
+        html: registerMail(url.origin, register_token, user.email)
+      });
+      console.log({ res });
+    } catch (error) {
+      const apiError = ApiError.fromSendEmailError();
+      return handleError(apiError, 500);
+    }
   }
   return Response.json(
     {
