@@ -14,7 +14,7 @@ import { nanoid } from '@/app/lib/utils';
 import { UserMessage } from '../message';
 import ButtonScrollToBottom from '../ButtonScrollToBottom';
 import { useScrollAnchor } from '@/app/lib/hooks/use-scroll-anchor';
-import { LIST_ROUTER } from '@/app/lib/constants/common';
+import { LIST_AI_MODELS, LIST_ROUTER } from '@/app/lib/constants/common';
 import { cn } from '@/app/lib/utils/common';
 import { useDashboardContext } from '@/app/context/DashboardContext';
 import { toast } from 'react-toastify';
@@ -50,6 +50,7 @@ export default function Chat({ id, session, title }: ChatProps) {
     useScrollAnchor();
   const [refresh, setRefresh] = useState(false);
   const queryClient = useQueryClient();
+  const [model, setModel] = useLocalStorage('model', LIST_AI_MODELS[0]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -105,7 +106,7 @@ export default function Chat({ id, session, title }: ChatProps) {
     ]);
 
     try {
-      const responseMessage = await submitUserMessage(message);
+      const responseMessage = await submitUserMessage(message, model);
       setMessages((currentMessages) => [...currentMessages, responseMessage]);
 
       scrollToBottom();

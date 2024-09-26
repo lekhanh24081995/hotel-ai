@@ -59,7 +59,7 @@ function MoreRoomRates({ items, currency, limit }: Props) {
           <div className="w-full md:text-center">
             <Button
               type="button"
-              className="w-full max-w-32"
+              className="h-8 w-full max-w-32 md:h-9"
               onClick={handleMore}
             >
               {!isEnd ? 'Show more' : 'Show less'}

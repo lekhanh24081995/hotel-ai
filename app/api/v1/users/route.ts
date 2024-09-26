@@ -164,7 +164,6 @@ export async function POST(req: Request) {
         text: 'Thank you for registering with us! Please use the following link to verify your account:',
         html: registerMail(url.origin, register_token, user.email)
       });
-      console.log({ res });
     } catch (error) {
       const apiError = ApiError.fromSendEmailError();
       return handleError(apiError, 500);

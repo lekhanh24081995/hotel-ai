@@ -16,7 +16,7 @@ export default function Logo(props: Props) {
       {...rest}
       width={40}
       height={40}
-      className={cn('h-10 w-10 rounded', className)}
+      className={cn('h-8 w-8 rounded md:h-10 md:w-10', className)}
     />
   );
 }

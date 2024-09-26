@@ -25,14 +25,14 @@ import { auth } from '@/auth';
 import ChatMap from '@/app/components/ChatMap';
 import ChatHotel from '@/app/components/ChatHotels';
 import ChatHotelDetail from '@/app/components/ChatHotelDetail';
-import { createOpenAI as createGroq } from '@ai-sdk/openai';
+import { createOpenAI as createGroq, openai } from '@ai-sdk/openai';
 
 const groq = createGroq({
   baseURL: 'https://api.groq.com/openai/v1',
   apiKey: process.env.GROQ_API_KEY
 });
 
-export async function submitUserMessage(content: string) {
+export async function submitUserMessage(content: string, model: string) {
   'use server';
 
   const aiState = getMutableAIState();
@@ -64,11 +64,17 @@ export async function submitUserMessage(content: string) {
   const messageStream = createStreamableUI(null);
   const uiStream = createStreamableUI();
 
+  const modelMapping: Record<string, () => any> = {
+    ChatGPT: () => openai('gpt-4-turbo'),
+    Gemini: () => google('models/gemini-1.5-pro-latest'),
+    LLaMA: () => groq('llama-3.1-70b-versatile')
+  };
+  const aiModel = modelMapping[model];
+
   (async () => {
     try {
       const result = await streamText({
-        // model: google('models/gemini-1.5-pro-latest'),
-        model: groq('llama-3.1-70b-versatile'),
+        model: aiModel(),
         temperature: 0,
         tools: {
           showHotels: {

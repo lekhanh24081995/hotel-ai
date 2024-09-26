@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Suspense } from 'react';
 import ToggleSidebar from '../ToggleSidebar';
 import { auth } from '@/auth';
+import Heading from '../Heading';
 
 async function UserOrLogin() {
   const session = await auth();
@@ -16,8 +17,8 @@ async function UserOrLogin() {
   return (
     <>
       {session?.user && (
-        <div className="flex items-center">
-          <div className="relative mr-2 h-8 w-8 md:mr-5">
+        <div className="flex items-center gap-4">
+          <div className="relative h-7 w-7 md:h-8 md:w-8">
             <BellIcon className="cursor-pointer" />
             <div className="absolute right-0 top-0 h-3 w-3 rounded-full bg-red-1" />
           </div>
@@ -46,7 +47,7 @@ async function UserOrLogin() {
 export default function Header() {
   return (
     <header className="header z-1 fixed left-0 right-0 top-0 z-10 flex h-16 items-center justify-between border-b bg-white px-4 py-[10px] transition-all md:px-6">
-      <h1 className="hidden text-lg font-bold md:block">Chat with AI</h1>
+      <Heading />
 
       <div className="flex items-center justify-between gap-4 md:hidden">
         <ToggleSidebar />

@@ -8,6 +8,15 @@ import { ChatShareDialog } from '../ChatShareDialog';
 import { useAIState } from 'ai/rsc';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import { ChatSearchDialog } from '../ChatSearchDialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../ui/select';
+import { LIST_AI_MODELS } from '@/app/lib/constants/common';
+import { useLocalStorage } from '@/app/lib/hooks/use-local-storage';
 
 type Props = {
   id: string;
@@ -19,7 +28,7 @@ export default function ChatHeader({ id, title }: Props) {
   const [shareDialogOpen, setShareDialogOpen] = useState(false);
   const [searchDialogOpen, setSearchDialogOpen] = useState(false);
   const [aiState] = useAIState();
-
+  const [model, setModel] = useLocalStorage('model', LIST_AI_MODELS[0]);
   return (
     <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-background px-4 py-4 shadow-md md:px-6">
       <div className="flex items-center gap-2">
@@ -28,7 +37,21 @@ export default function ChatHeader({ id, title }: Props) {
             <UserIcon />
           </AvatarFallback>
         </Avatar>
-        <div className="text-sm font-medium">Chatbot</div>
+        <div className="flex items-center gap-2 text-sm font-medium">
+          <h1>Chatbot</h1>
+          <Select value={model} onValueChange={setModel}>
+            <SelectTrigger className="gap-1">
+              <SelectValue placeholder="Select model">{model}</SelectValue>
+            </SelectTrigger>
+            <SelectContent position="item-aligned">
+              {LIST_AI_MODELS.map((item) => (
+                <SelectItem key={item} value={item}>
+                  {item}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <div className="flex items-center gap-2">
         {aiState?.messages?.length >= 2 && id && title && (
@@ -79,6 +102,7 @@ export default function ChatHeader({ id, title }: Props) {
           <ChatSearchDialog
             open={searchDialogOpen}
             onOpenChange={setSearchDialogOpen}
+            id={id}
           />
         </>
 

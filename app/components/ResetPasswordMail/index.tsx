@@ -32,11 +32,11 @@ export const ResetPasswordMail = (
         .header {
             text-align: center;
             padding-bottom: 20px;
-            border-bottom: 2px solid #007bff;
+            border-bottom: 2px solid #007bff; !important;
             margin-bottom: 20px;
         }
         .header h1 {
-            color: #007bff;
+            color: #007bff; !important;
         }
         .content {
             padding: 20px 0;
@@ -54,14 +54,14 @@ export const ResetPasswordMail = (
         .link-button {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #007bff !important;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
         .link-button:hover {
-            background-color: #0056b3;
+            background-color: #0056b3 !important;
         }
     </style>
 </head>

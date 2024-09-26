@@ -242,7 +242,7 @@ export default function ChatMap({
         <BotMessage
           showAvatar={false}
           showAction={false}
-          content={`Here's the map of route:\n${route.join(', ')}`}
+          content={`Here is the map showing your route:\n${route.join(' → ')}`}
         />
 
         <div className="h-[80vh]">

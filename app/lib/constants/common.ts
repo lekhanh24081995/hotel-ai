@@ -69,6 +69,23 @@ const MIDDLEWARE_CONFIG = {
   I18N: '^(?!/api)(?!.*(/static|\\..*|_next)).*'
 };
 
+const AI_MODELS = {
+  LLAMA: {
+    name: 'LLaMA',
+    version: 'llama-3.1-70b-versatile'
+  },
+  GEMINI: {
+    name: 'Gemini',
+    version: 'gemini-1.5-pro-latest'
+  },
+  CHATGPT: {
+    name: 'ChatGPT',
+    version: 'gpt-4-turbo'
+  }
+};
+
+const LIST_AI_MODELS = Object.values(AI_MODELS).map((model) => model.name);
+
 export {
   APP_URL,
   APP_API_KEY,
@@ -79,5 +96,7 @@ export {
   REQUIRED_API_KEY_ENDPOINTS,
   MAILTRAP,
   LOCAL_STORAGE_KEY,
-  MIDDLEWARE_CONFIG
+  MIDDLEWARE_CONFIG,
+  AI_MODELS,
+  LIST_AI_MODELS
 };

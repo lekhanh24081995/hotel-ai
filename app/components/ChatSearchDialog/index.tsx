@@ -5,11 +5,9 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle
 } from '@/app/components/ui/dialog';
-import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
@@ -17,14 +15,14 @@ import { useQuery } from '@tanstack/react-query';
 import { searchChat } from '@/app/lib/services/chat';
 import ChatSidebarList from '../ChatSidebarList';
 
-interface ChatSearchDialog extends DialogProps {}
+interface ChatSearchDialog extends DialogProps {
+  id: string;
+}
 interface FormData {
   query: string;
 }
 
-export function ChatSearchDialog({ ...props }: ChatSearchDialog) {
-  const [isSharePending, startShareTransition] = React.useTransition();
-
+export function ChatSearchDialog({ id, ...props }: ChatSearchDialog) {
   const { control } = useForm<FormData>({
     defaultValues: {
       query: ''
@@ -37,7 +35,10 @@ export function ChatSearchDialog({ ...props }: ChatSearchDialog) {
   const [debounceQuery] = useDebounce(query, 300);
   const { data: chats } = useQuery({
     queryKey: ['chats', debounceQuery],
-    queryFn: () => searchChat(debounceQuery),
+    queryFn: async () => {
+      const chats = await searchChat(debounceQuery);
+      return chats.filter((chat) => chat.id !== id);
+    },
     staleTime: 0,
     refetchOnWindowFocus: false,
     gcTime: 0,
@@ -68,13 +69,13 @@ export function ChatSearchDialog({ ...props }: ChatSearchDialog) {
 
         {chats && !!chats.length && (
           <div className="max-h-[350px] overflow-auto scrollbar-hide md:hover:scrollbar-default">
-            <ChatSidebarList chats={chats} isSearchList={true} />
+            <ChatSidebarList
+              chats={chats}
+              isSearchList={true}
+              shouldToggleSidebar={false}
+            />
           </div>
         )}
-
-        <DialogFooter className="items-center">
-          <Button disabled={isSharePending}>Search</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

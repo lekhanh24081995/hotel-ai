@@ -75,6 +75,7 @@ export function ChatDeleteDialog({
                 console.error('Error deleting chat:', error);
               }
             }}
+            autoFocus
           >
             {deleteChatMutation.isPending && (
               <IconSpinner className="mr-2 animate-spin" />

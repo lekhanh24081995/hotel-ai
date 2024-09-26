@@ -24,8 +24,13 @@ type Props = {
   chat: Chat;
   index: number;
   isSearchList: boolean;
+  shouldToggleSidebar: boolean;
 };
-export default function ChatSidebarItem({ chat, isSearchList }: Props) {
+export default function ChatSidebarItem({
+  chat,
+  isSearchList,
+  shouldToggleSidebar
+}: Props) {
   const { toggleMobileSidebar } = useDashboardContext();
   const pathname = usePathname();
   const isActive = chat.path === pathname;
@@ -75,7 +80,7 @@ export default function ChatSidebarItem({ chat, isSearchList }: Props) {
           href={`${LIST_ROUTER.CHAT}/${chat.id}`}
           className="flex flex-1 items-center gap-2 truncate md:hidden"
           title={chat.title}
-          onClick={toggleMobileSidebar}
+          onClick={shouldToggleSidebar ? toggleMobileSidebar : undefined}
         >
           <ChatBubbleBottomCenterTextIcon className="h-6 w-6" />
           {!isSearchList && newChatId === chat.id && (
@@ -163,7 +168,14 @@ export default function ChatSidebarItem({ chat, isSearchList }: Props) {
             <div>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <EllipsisVerticalIcon className="relative h-6 w-6 cursor-pointer rounded-full bg-transparent transition-all hover:text-primary md:opacity-0 md:group-hover:opacity-100" />
+                  <EllipsisVerticalIcon
+                    className={cn(
+                      'relative h-6 w-6 cursor-pointer rounded-full bg-transparent transition-all hover:text-primary',
+                      isMenuOpen
+                        ? 'opacity-100'
+                        : 'md:opacity-0 md:group-hover:opacity-100'
+                    )}
+                  />
                 </TooltipTrigger>
                 <TooltipContent>Options</TooltipContent>
               </Tooltip>

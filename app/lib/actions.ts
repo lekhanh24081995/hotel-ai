@@ -56,7 +56,7 @@ async function logoutAndClearSession() {
       });
     }
   } catch (error) {
-    console.log('clear token error: ', error);
+    console.log(error);
   }
 
   const clearRes = await signOut({ redirect: false });

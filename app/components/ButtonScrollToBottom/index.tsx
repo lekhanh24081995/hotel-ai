@@ -21,7 +21,7 @@ export default function ButtonScrollToBottom({
       variant="outline"
       size="icon"
       className={cn(
-        'fixed right-4 top-36 z-10 bg-background text-primary transition-opacity duration-300 hover:bg-background/90 sm:right-8 md:top-40',
+        'fixed bottom-24 right-4 z-10 bg-background/90 text-primary transition-opacity duration-300 hover:bg-background sm:right-8 md:bottom-32',
         isAtBottom ? 'opacity-0' : 'opacity-100',
         className
       )}
