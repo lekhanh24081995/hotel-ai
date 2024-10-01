@@ -2,11 +2,11 @@
 
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { forgotPasswordSchema, loginSchema } from '@/app/lib/yup-schema';
+import { forgotPasswordSchema } from '@/app/lib/yup-schema';
 import { useConfirmRedirectIfDirty } from '@/app/lib/hooks/useConfirmRedirectIfDirty';
 import { InputLabel } from '../../InputLabel';
 import { Button } from '../../ui/button';
@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { LIST_ROUTER } from '@/app/lib/constants/common';
 import { requestResetPassword } from '@/app/lib/services/users';
 import { toast } from 'react-toastify';
+import { LoadingIcon } from '../../LoadingIcon';
 
 export type LoginFormData = {
   email: string;
@@ -62,7 +63,6 @@ function ForgotPasswordForm() {
               <span>{error}</span>
             </div>
           )}
-
           <Controller
             control={control}
             name="email"
@@ -75,11 +75,10 @@ function ForgotPasswordForm() {
               />
             )}
           />
-
           <Button size={'lg'} className="mt-4 w-full" disabled={isSubmitting}>
+            {isSubmitting && <LoadingIcon />}
             Submit
           </Button>
-
           <Link
             href={LIST_ROUTER.LOGIN}
             className="text-center font-semibold text-blue-700"

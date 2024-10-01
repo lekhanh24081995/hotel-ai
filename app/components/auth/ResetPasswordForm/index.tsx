@@ -15,6 +15,7 @@ import { verifyToken } from '@/app/lib/tokens';
 import { JwtPayload } from 'jsonwebtoken';
 import { LIST_ROUTER } from '@/app/lib/constants/common';
 import { toast } from 'react-toastify';
+import { LoadingIcon } from '../../LoadingIcon';
 
 export type LoginFormData = {
   password: string;
@@ -105,6 +106,7 @@ function ResetPasswordForm() {
           />
 
           <Button size={'lg'} className="mt-4 w-full" disabled={isSubmitting}>
+            {isSubmitting && <LoadingIcon />}
             Submit
           </Button>
         </div>

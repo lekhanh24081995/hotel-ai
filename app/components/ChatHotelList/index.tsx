@@ -5,7 +5,6 @@ import HotelTable from '../HotelTable';
 import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { requestSearchHotels } from '@/app/lib/services/hotels';
-import { useScrollAnchor } from '@/app/lib/hooks/use-scroll-anchor';
 
 interface ListHotelsProps {
   city: string;

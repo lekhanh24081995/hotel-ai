@@ -157,7 +157,7 @@ export async function POST(req: Request) {
     }
 
     try {
-      const res = await transporter.sendMail({
+      await transporter.sendMail({
         from: '"Hotel AI Team" <hotelai@administration.com>',
         to: user.email,
         subject: 'Account Registration Verification',
